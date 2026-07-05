@@ -2,8 +2,14 @@ import express from "express";
 const app = express();
 import enviroments from "./src/api/config/enviroments.js";
 import connection from "./src/api/database/db.js";
+import cors from "cors"
 
+// Config
 const PORT = enviroments.port;
+
+//Middleware
+app.use(cors());
+
 
 //Endpoints
 app.get("/", (req, res) => {
@@ -21,7 +27,9 @@ app.get("/api/products", async (req, res) => {
         const sql = "SELECT * FROM productos";
         const [rows] = await connection.query(sql);
 
-        res.status(200).json({rows});
+        res.status(200).json({
+            payload: rows
+        });
         console.log(rows);
 
     } catch (error){

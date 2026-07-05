@@ -1,0 +1,53 @@
+ul {
+    list-style-type: none;
+}
+
+header {
+    height: 80px;
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+header, .enlaces {
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.enlaces {
+    width: 85%;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.card-producto {
+    display: flex;
+    width: 170px;
+    font-size: 10px;
+    flex-direction: column;
+    align-items: center;
+    height: 170px;
+    justify-content: space-between;
+    background-color: ghostwhite;
+    color: black;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    border: 3px;
+    padding: 10px;
+}
+
+.card-producto img {
+    width: 70px;
+}
