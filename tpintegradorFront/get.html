@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <ul class="enlaces">
+            <li class="enlaces">
+                <a href="index.html">
+                    <span>VER</span>
+                </a>
+            </li>
+
+            <li class="enlaces">
+                <a href="get.html">
+                    <span>CONSULTAR</span>
+                </a>
+            </li>
+
+            <li class="enlaces">
+                <a href="post.html">
+                    <span>CREAR</span>
+                </a>
+            </li>
+
+            <li class="enlaces">
+                <a href="put.html">
+                    <span>MODIFICAR</span>
+                </a>
+            </li>
+
+            <li class="enlaces">
+                <a href="delete.html">
+                    <span>BORRAR</span>
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <main>
+        <section class="form-productos">
+            <h2>Consultar productos por id: </h2>
+
+            <form id="getProduct-form">
+                <label for="idProd">Id del producto: </label>
+                <input type="number" name="idProd" id="idProd" required>
+
+                <input type="submit" value="Consultar producto">
+            </form>
+        </section>
+
+        <section>
+            <hr>
+            <div id="contenedor-productos">
+                
+                <!-- <div class="card-producto">
+                    <img src="assets/j52291000003001-01-600x600-0e25ead14229b1304117063048042015-640-0.jpg" alt="">
+                    <h4>Guitarra Electroacustica</h4>
+                    <p>Id: 1</p>
+                    <p>$20000</p>
+                </div> -->
+
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        const contenedorProductos = document.getElementById("contenedor-productos");
+        const getProductForm = document.getElementById("getProduct-form")
+
+        getProductForm.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            // Creo un objeto nativo del formData a partir del formulario del evento
+            const formData = new FormData(event.target);
+
+            console.log(formData);
+
+            // Transformo mi objeto nativo FormData en un objeto normal de JS
+            const data = Object.fromEntries(formData.entries());
+
+            const idProd = data.idProd;
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/products/${idProd}`);
+
+                const data = await response.json();
+
+                console.log(data.payload[0]);
+
+                const producto = data.payload[0];
+
+                const htmlProducto = `
+                    <ul>
+                        <li class="lista-producto">
+                            <img src="${producto.imagen}" alt="${producto.nombre}">
+                            <p>Id: ${producto.id} / Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</p>
+                        </li>
+                    </ul>
+                `;
+
+                contenedorProductos.innerHTML = htmlProducto;
+
+            } catch (error) {
+                console.error(`Error al obtener productos: ${error}`)
+            }
+        })
+    </script>
+
+</body>
+</html>
