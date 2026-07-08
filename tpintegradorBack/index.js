@@ -7,7 +7,7 @@ import cors from "cors"
 // Config
 const PORT = enviroments.port;
 
-//Middlewares de aplicaciones
+//======================Middlewares======================
 app.use(cors());
 
 // Middleware para parsear JSON en las solicitudes POST y PUT
@@ -77,20 +77,22 @@ const validateProduct = (req, res, next) => {
 }
 
 
-//Endpoints
-app.get("/", (req, res) => {
-    res.send("Hola mundo");
-});
-
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
-//endpoint para devolver TODOS los productos
+//======================Endpoints======================
+app.get("/", (req, res) => {
+    res.send("Hola mundo");
+});
+
+//===========Productos===========
+
+//Endpoint GET para TODOS los productos
 //devuelve el resultado de la consulta a la bbdd y el estatus 200(ok)
 app.get("/api/products", async (req, res) => {
     try{
-        const sql = "SELECT id, nombre, precio, imagen FROM productos";
+        const sql = "SELECT id, nombre, precio, imagen, activo FROM productos";
         const [rows] = await connection.query(sql);
 
         if (rows.length === 0) {
@@ -115,20 +117,19 @@ app.get("/api/products", async (req, res) => {
     }
 });
 
-// Endpoint GET por id
+// Endpoint GET por ID
 app.get("/api/products/:id", validateId, async (req, res) => {
     // Opt 2: Manejamos posibles error con try...catch
     try {
         // Opt 1: Delegamos al middleware validateId recoger el valor y limpiarlo
-        // const id = req.params.id; // Obtengo valor que paso por la URL
+        const id = req.params.id; // Obtengo valor que paso por la URL
 
         // Opt 4: Guardamos la consulta sql en una variable y optimizamos pidiendo solo los campos necesarios
-        const sql = "SELECT id, nombre, precio, imagen FROM productos where productos.id = ?"
+        const sql = "SELECT id, nombre, precio, imagen, activo FROM productos where productos.id = ?"
 
         const [rows] = await connection.query(sql, [req.id]);
 
         // Opt 5: Si no encontramos un producto con ese id devolvemos un status 404 (Not Found) 
-
         if (rows.length === 0) {
             return res.status(404).json({
                 message: `No se encontro producto con id ${req.id}`
@@ -228,10 +229,12 @@ app.put("/api/products/", async (req, res) => {
     }
 })
 
+//===========Usuarios===========
+
 //endpoint para devolver TODOS los usuarios
-app.get("/api/users", async (req, res) => {
+app.get("/api/users/all", async (req, res) => {
     try{
-        const sql = "SELECT id, nombre, precio, imagen FROM productos";
+        const sql = "SELECT * FROM usuario";
         const [rows] = await connection.query(sql);
 
         res.status(200).json({rows});
@@ -243,5 +246,35 @@ app.get("/api/users", async (req, res) => {
         res.status(500).json({
             message: "Error interno del servidor"
         });
+    }
+});
+
+//GET por ID
+app.get("/api/users/:id", validateId, async (req, res) => {
+    // Opt 2: Manejamos posibles error con try...catch
+    try {
+        const id = req.params.id; // Obtengo valor que paso por la URL
+
+        const sql = "SELECT * FROM usuario where usuario.id = ?"
+
+        const [rows] = await connection.query(sql, [req.id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                message: `No se encontro un usuario con id ${req.id}`
+            });
+        }
+
+        //ok
+        res.status(200).json({
+            payload: rows
+        });
+
+    } catch (error) {
+        console.error(`Error obteniendo usuario con id ${req.id}`, error.message);
+
+        res.status(500).json({
+            message: `error interno al obtener un usuario con id ${500}`
+        }); 
     }
 });

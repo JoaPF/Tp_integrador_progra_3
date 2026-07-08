@@ -79,14 +79,13 @@
                 // Opt 2: Destructuring directo
                 const { payload } = await response.json();
 
-                
 
                 // const productos = data.payload;
                 // console.log(productos);
 
                 renderizarProductos(payload);
             } catch (error) {
-
+                mostrarError();
             }
         }
 
@@ -94,12 +93,17 @@
             let htmlProductos = "";
 
             array.forEach(producto => {
+                // ↓ Para el front, no para el dashboard/backoffice ↓
+                /*// Si el producto no está activo, no lo muestro
+                if(producto.activo != 1) return; */
+                
                 htmlProductos += `
                     <div class="card-producto">
-                        <img src="${producto.imagen}" alt="">
+                        <img src="assets/${producto.imagen}" alt="">
                         <h4>${producto.nombre}</h4>
                         <p>Id: ${producto.id}</p>
                         <p>$${producto.precio}</p>
+
                     </div>
                 `;
             });
