@@ -67,13 +67,24 @@
         async function obtenerProductos() {
             try {
                 const response = await fetch(url);
-                const data  = await response.json();
-                
-                const productos = data.payload;
-                console.log(data);
-                console.log(productos);
 
-                renderizarProductos(productos);
+                //Opt 1: Verificamos que la respuesta HTTP sea exitosa
+                if (!response.ok) {
+                    const parsedResponse = await response.json();
+                    throw new Error(`${parsedResponse.message}`)
+                }
+
+
+                // const data  = await response.json();
+                // Opt 2: Destructuring directo
+                const { payload } = await response.json();
+
+                
+
+                // const productos = data.payload;
+                // console.log(productos);
+
+                renderizarProductos(payload);
             } catch (error) {
 
             }
@@ -95,6 +106,12 @@
 
             contenedorProductos.innerHTML = htmlProductos;
         };
+
+        function mostrarError(mensaje) {
+            contenedorProductos.innerHTML = `
+                <p class="mensaje mensaje_error">${mensaje}</p>
+            `;
+        }
 
         obtenerProductos();
     </script>
