@@ -135,7 +135,7 @@
             });
         };
 
-        // Funcion para realizar una operacion delete
+
         async function formularioPutProducto(event, producto) {
             event.stopPropagation(); // Evitamos la propagacion de eventos
 
@@ -202,12 +202,14 @@
                     body: JSON.stringify(data)
                 });
 
-                const parsedResponse = await response.json();
+                const result = await response.json();
 
-                alert(parsedResponse.message);
+                if (!response.ok) {
+                    mostrarError(result.message);
+                    return;
+                }
 
-                contenedorProductos.innerHTML = "";
-                contenedorForm.innerHTML = "";
+                mostrarExito(result.message);
 
             } catch (error) {
                 console.error(error);
@@ -218,8 +220,16 @@
         }
 
         function mostrarError(mensaje) {
+            contenedorForm.innerHTML = "";
             contenedorProductos.innerHTML = `
                 <p class="mensaje mensaje_error">${mensaje}</p>
+            `;
+        }
+        // TO DO: estas funciones sean mostrarMensaje()
+        function mostrarExito(mensaje) {
+            contenedorForm.innerHTML = "";
+            contenedorProductos.innerHTML = `
+                <p class="mensaje mensaje_exito">${mensaje}</p>
             `;
         }
 
