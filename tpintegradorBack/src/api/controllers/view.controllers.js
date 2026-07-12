@@ -46,3 +46,11 @@ export const putProductView = (req, res) => {
         about: "Modificar productos: "
     }); 
 }
+
+// Vista Actualizar Producto
+export const deleteProductView = (req, res) => {
+    res.render("delete", {
+        title: "Eliminar",
+        about: "Eliminar productos: "
+    }); 
+}
