@@ -1,0 +1,35 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    <main>
+        <section class="form-productos">
+            <h2><%= about %></h2>
+
+            <form id="getProduct-form">
+                <label for="idProd">Id del producto: </label>
+                <input type="number" name="idProd" id="idProd" required>
+
+                <input type="submit" value="Consultar producto">
+            </form>
+        </section>
+
+        <section>
+            <hr>
+            <div id="contenedor-productos">
+                
+                <!-- <div class="card-producto">
+                    <img src="assets/j52291000003001-01-600x600-0e25ead14229b1304117063048042015-640-0.jpg" alt="">
+                    <h4>Guitarra Electroacustica</h4>
+                    <p>Id: 1</p>
+                    <p>$20000</p>
+                </div> -->
+
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Apuntamos a nuestro archivo js en public/js/get.js -->
+    <script src="/js/get.js"></script>
+
+<%- include("partials/footer.ejs") %>

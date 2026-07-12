@@ -1,0 +1,54 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    <main>
+        <section class="form-productos">
+            <h2><%= about %></h2> 
+
+            <form id="postProduct-form" class="form-alta">
+                <label for="nameProd">Nombre del producto: </label>
+                <input type="text" name="nombre" id="nameProd" required>
+
+                <label for="imageProd">Imagen del producto: </label>
+                <input type="text" name="imagen" id="imageProd" required>
+
+                <label for="categoryProd">Categoria del producto: </label>
+                <select name="categoria" id="categoryProd">
+                    <option value="Electric">Electrica</option>
+                    <option value="Electroacustic">Electroacustica</option>
+                </select>
+
+                <label for="priceProd">Precio del producto: </label>
+                <input type="number" name="precio" id="priceProd" required>
+
+                <label for="activeProd">Producto activo: </label>
+                <select name="activo" id="activeProd" required>
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
+
+                <div>
+                    <input type="submit" value="Crear producto">
+                </div>
+            </form>
+        </section>
+
+        <section>
+            <hr>
+            <div id="contenedor-productos">
+                
+                <!-- <div class="card-producto">
+                    <img src="assets/j52291000003001-01-600x600-0e25ead14229b1304117063048042015-640-0.jpg" alt="">
+                    <h4>Guitarra Electroacustica</h4>
+                    <p>Id: 1</p>
+                    <p>$20000</p>
+                </div> -->
+
+            </div>
+
+        </section>
+    </main>
+
+    <script src="/js/post.js"></script>
+
+<%- include("partials/footer.ejs") %>

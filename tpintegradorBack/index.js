@@ -1,10 +1,11 @@
 import express from "express";
 const app = express(); // instancia de una aplicacion
 import enviroments from "./src/api/config/enviroments.js";
-import { productRoutes } from "./src/api/routes/index.js";
+import { productRoutes, viewRoutes } from "./src/api/routes/index.js";
 import connection from "./src/api/database/db.js"; // TO DO: Despues de modularizar users hay q sacar la conexion de la BBDD de index.js
 import cors from "cors"
 import { loggerURL, validateId, validateProduct } from "./src/api/middlewares/middlewares.js"; // TO DO: Despues de modularizar users hay que sacar validateId y Validate Product
+import { join, __dirname } from "./src/api/utils/index.js"; // Importamos la configuracion para trabajar con rutas de /utils
 
 // Config
 const PORT = enviroments.port;
@@ -16,6 +17,13 @@ app.use(cors());
 app.use(express.json());
 
 app.use(loggerURL);
+
+app.use(express.static(join(__dirname, "src/public"))); // Middleware para servir archivos estaticos
+// Gracias a esta configuracion, ya puedo acceder a http://localhost:3000/css/styles.css y obtener el archivo css que se encuentra en la ruta src/public/css/styles.css
+
+// Configuramos EJS como motor de plantillas
+app.set("view engine", "ejs"); // Motor de vistas
+app.set("views", join(__dirname, "src/views")); // Desde la raiz del servidor apuntamos a / + /src + /views
 
 
 app.listen(PORT, () => {
@@ -29,6 +37,7 @@ app.get("/", (req, res) => {
 
 // Rutas
 app.use("/api/products", productRoutes);
+app.use("/dashboard", viewRoutes);
 
 //===========Productos===========
 

@@ -1,0 +1,89 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    
+
+    <main>
+        <section class="seccion-productos">
+            <h2><%= about %></h2>
+            <div id="contenedor-productos">
+                
+                <!-- Recibimos nuestro array productos en la plantilla y lo iteramos en la misma plantilla 
+                 Estamos directamente haciendo como si fuera un innerHTML-->
+                <% productsArray.forEach(producto => { %>
+                    <div class="card-producto">
+                        <img src="<%=producto.imagen%>" alt="<%=producto.nombre%>">
+                        <h4><%=producto.nombre%></h4>
+                        <p>Id: <%=producto.id%></p>
+                        <p>$<%=producto.precio%></p>
+                    </div>
+                <% }) %>
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        /*
+        const contenedorProductos = document.getElementById("contenedor-productos");
+
+        const url = "http://localhost:3000/api/products/"
+
+        async function obtenerProductos() {
+            try {
+                const response = await fetch(url);
+
+                //Opt 1: Verificamos que la respuesta HTTP sea exitosa
+                if (!response.ok) {
+                    const parsedResponse = await response.json();
+                    throw new Error(`${parsedResponse.message}`)
+                }
+
+
+                // const data  = await response.json();
+                // Opt 2: Destructuring directo
+                const { payload } = await response.json();
+
+
+                // const productos = data.payload;
+                // console.log(productos);
+
+                renderizarProductos(payload);
+            } catch (error) {
+                mostrarError();
+            }
+        }
+
+        function renderizarProductos(array) {
+            let htmlProductos = "";
+
+            array.forEach(producto => {
+                // ↓ Para el front, no para el dashboard/backoffice ↓
+                // Si el producto no está activo, no lo muestro
+                // if(producto.activo != 1) return;
+                
+                htmlProductos += `
+                    <div class="card-producto">
+                        <img src="${producto.imagen}" alt="">
+                        <h4>${producto.nombre}</h4>
+                        <p>Id: ${producto.id}</p>
+                        <p>$${producto.precio}</p>
+
+                    </div>
+                `;
+            });
+
+            contenedorProductos.innerHTML = htmlProductos;
+        };
+
+        function mostrarError(mensaje) {
+            contenedorProductos.innerHTML = `
+                <p class="mensaje mensaje_error">${mensaje}</p>
+            `;
+        }
+
+        obtenerProductos();
+    */
+    </script>
+
+<%- include("partials/footer.ejs") %>
