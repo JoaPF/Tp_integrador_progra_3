@@ -1,58 +1,52 @@
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+:root {
+    --color-primario: #0d0d0d;
+    --color-secundario: #1a1a1a;
+    --color-acento: #e63946;
+    --color-texto: #f1f1f1;
+    --font-principal: 'Arial', sans-serif;
+    --border-radius: 8px;  /* también podés guardar otras cosas, no solo colores */
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #1a1a2e;
-    color: white;
-    font-family: Arial, sans-serif;
+    background-color: var(--color-primario);
 }
 
 header {
-    height: 80px;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 40px;
     display: flex;
     align-items: center;
-}
-
-header, .enlaces {
-    display: flex;
     justify-content: space-between;
+    padding: 0 40px;
+    height: 70px;
+    background-color: var(--color-secundario);
+    border-radius: 9px;
 }
 
-.enlaces {
-    width: 100%;
-    margin-bottom: 0;
-    align-items: center;
+nav {
+    color: var(--color-texto);
+    font-size: large;
+    font-family: var(--font-principal);
 }
 
-header a {
-    color: #e05c5c;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-header a:hover {
-    color: white;
+#icono {
+    width: 50px;
+    height: 50px;
 }
 
 main {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
 }
 
-#contenedor-productos {
+.bienvenida {
+    text-align: center;
+    color: var(--color-texto);
+    font-family: var(--font-principal);
+}
+
+.cards-productos {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
 }
 
@@ -61,21 +55,90 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid white;
-    background-color: #16213e;
-    color: white;
-    font-size: 12px;
     text-align: center;
-    height: 170px;
+    color: var(--color-texto);
+    font-family: var(--font-principal);
+    border: 2px solid var(--color-acento);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #1a1a1a;
+}
+
+.card-producto p {
+    color: var(--color-acento);
 }
 
 .card-producto img {
-    width: 70px;
+    width: 180px;
 }
 
-.form-alta {
+.card-producto button {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.card-producto button:hover{
+    background-color: transparent;
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+}
+
+footer {
+    background-color: var(--color-secundario);
+    margin-top: 20px;
+    padding: 0 40px;
+}
+
+footer h2 {
+    text-align: center;
+    color: var(--color-texto);
+}
+
+.botones-carrito {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.vaciar-carrito {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.vaciar-carrito:hover{
+    background-color: transparent;
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+}
+
+.imprimir-ticket {
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: var(--font-principal);
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.imprimir-ticket:hover{
+    background-color: transparent;
+    border-color: var(--color-acento);
+    color: var(--color-acento);
 }
