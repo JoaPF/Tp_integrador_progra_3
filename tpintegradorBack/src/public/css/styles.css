@@ -61,7 +61,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 20px;
     border-radius: 5px;
     border: 1px solid white;
     background-color: #16213e;
@@ -69,6 +69,14 @@ main {
     font-size: 12px;
     text-align: center;
     height: 170px;
+}
+
+.card-producto.inactivo {
+    border: 1px solid red;
+}
+
+img {
+    width: 500px;
 }
 
 .card-producto img {
@@ -79,3 +87,15 @@ main {
     display: flex;
     flex-direction: column;
 }
+
+.descargar-excel {
+    background-color: white;
+    color: black;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+

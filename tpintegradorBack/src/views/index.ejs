@@ -11,7 +11,7 @@
                 <!-- Recibimos nuestro array productos en la plantilla y lo iteramos en la misma plantilla 
                  Estamos directamente haciendo como si fuera un innerHTML-->
                 <% productsArray.forEach(producto => { %>
-                    <div class="card-producto">
+                    <div class="card-producto <%= producto.activo ? '' : 'inactivo' %>">
                         <img src="<%=producto.imagen%>" alt="<%=producto.nombre%>">
                         <h4><%=producto.nombre%></h4>
                         <p>Id: <%=producto.id%></p>
@@ -23,7 +23,7 @@
         </section>
     </main>
 
-    <script>
+    <script src="/js/header.js">
         /*
         const contenedorProductos = document.getElementById("contenedor-productos");
 

@@ -8,6 +8,13 @@ const insertNewSale = (usuario, fecha, precioTotal) => {
     return connection.query(sql, [usuario, fecha, precioTotal]);
 }
 
+const selectAllSales = () => {
+    const sql = "SELECT id, nombre_usuario, fecha, precio_total FROM ventas";
+
+    return connection.query(sql);
+}
+
 export default {
-    insertNewSale
+    insertNewSale,
+    selectAllSales
 }
