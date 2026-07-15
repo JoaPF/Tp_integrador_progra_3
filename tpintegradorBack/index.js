@@ -1,14 +1,16 @@
 import express from "express";
 const app = express(); // instancia de una aplicacion
 import enviroments from "./src/api/config/enviroments.js";
-import { productRoutes, salesRouter, viewRoutes } from "./src/api/routes/index.js";
+import { productRoutes, salesRouter, viewRoutes, authRoutes } from "./src/api/routes/index.js";
 import connection from "./src/api/database/db.js"; // TO DO: Despues de modularizar users hay q sacar la conexion de la BBDD de index.js
 import cors from "cors"
 import { loggerURL, validateId, validateProduct } from "./src/api/middlewares/middlewares.js"; // TO DO: Despues de modularizar users hay que sacar validateId y Validate Product
 import { join, __dirname } from "./src/api/utils/index.js"; // Importamos la configuracion para trabajar con rutas de /utils
+import session from "express-session";//Para mantener la sesión iniciada
 
 // Config
-const PORT = enviroments.port;
+const { port, session_key } = enviroments;
+const PORT = port;
 
 //======================Middlewares======================
 app.use(cors());
@@ -25,23 +27,24 @@ app.use(express.static(join(__dirname, "src/public"))); // Middleware para servi
 app.set("view engine", "ejs"); // Motor de vistas
 app.set("views", join(__dirname, "src/views")); // Desde la raiz del servidor apuntamos a / + /src + /views
 
+// Middleware de sesion
+app.use(session({
+    secret: session_key, // Firma las cookies para evitar manipulacion (debe ser una contraseña segura)
+    resave: false, // Evita guardar la sesion si no hubo cambios
+    saveUnitialized: true // No guarda sesiones vacias
+}));
+// Middleware para parsear info de <form>
+app.use(express.urlencoded({ extended: true }));// Middleware para leer formularios HTML <form method="POST">
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
-//======================Endpoints======================
-app.get("/", (req, res) => {
-    res.send("Hola mundo");
 });
 
 // Rutas
 app.use("/api/products", productRoutes);
 app.use("/dashboard", viewRoutes);
 app.use("/api/sales", salesRouter);
-
-//===========Productos===========
-
+app.use("/login", authRoutes);
 
 //===========Usuarios===========
 

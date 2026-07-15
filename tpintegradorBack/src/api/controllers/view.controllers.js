@@ -47,7 +47,7 @@ export const putProductView = (req, res) => {
     }); 
 }
 
-// Vista Actualizar Producto
+// Vista Eliminar Producto
 export const deleteProductView = (req, res) => {
     res.render("delete", {
         title: "Eliminar",
