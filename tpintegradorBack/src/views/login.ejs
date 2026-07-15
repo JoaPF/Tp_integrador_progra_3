@@ -1,46 +1,46 @@
 <%- include("partials/head.ejs") %>
+<main>
+    <h2><%= about %></h2>
 
-<h2><%= about %></h2>
+    <!-- ====================================================
+        Enviando formularios de manera nativa con HTML
+    =========================================================
 
-<!-- ====================================================
-    Enviando formularios de manera nativa con HTML
-=========================================================
+    en action="" mandamos la url del endpoint /login
 
-en action="" mandamos la url del endpoint /login
+    en method="" determinamos si enviamos con GET o con POST la informacion
 
-en method="" determinamos si enviamos con GET o con POST la informacion
+    Gracias al middleware
 
-Gracias al middleware
+        app.use(express.urlencoded({
+            extended: true
+        }));
 
-    app.use(express.urlencoded({
-        extended: true
-    }));
+    Nuestro endpoint recibirá esta informacion (No JSON) como objetos JS
+    Es decir, el middleware parseara automaticamente el tipo de info que envia el <form>
 
-Nuestro endpoint recibirá esta informacion (No JSON) como objetos JS
-Es decir, el middleware parseara automaticamente el tipo de info que envia el <form>
+    -->
 
--->
+    <form id="loginForm" class="form-alta" action="/login" method="POST">
 
-<form id="loginForm" class="form-alta" action="/login" method="POST">
+        <!-- TO DO, introducir campos REGEX para validar los datos que enviamos -->
+        <label for="emailUser">Email</label>
+        <input type="email" name="email" id="emailUser" value="" required>
 
-    <!-- TO DO, introducir campos REGEX para validar los datos que enviamos -->
-    <label for="emailUser">Email</label>
-    <input type="email" name="email" id="emailUser" value="" required>
+        <label for="passwordUser">Password</label>
+        <input type="password" name="password" id="passwordUser" value="" required>
 
-    <label for="passwordUser">Password</label>
-    <input type="password" name="password" id="passwordUser" value="" required>
+        <div>
+            <input type="submit" value="Login">
+        </div>
 
-    <div>
-        <input type="submit" value="Login">
-    </div>
+    </form>
 
-</form>
+    <!-- Mostramos posible mensaje de error del endpoint -->
+    <% if(typeof error !== "undefined") { %> 
 
-<!-- Mostramos posible mensaje de error del endpoint -->
-<% if(typeof error !== "undefined") { %> 
+        <p class="mensaje mensaje-error"><%= error %></p>
 
-    <p class="mensaje mensaje-error"><%= error %></p>
-
-<% } %>
-
-<%- include("partials/footer.ejs") %>
+    <% } %>
+</main>
+        <%- include("partials/footer.ejs") %>

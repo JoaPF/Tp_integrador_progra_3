@@ -99,3 +99,23 @@ img {
     font-weight: bold;
 }
 
+#logout{
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-family: Helvetica;
+    font-weight: bold;
+
+    color: #e05c5c;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+#logout:hover {
+    color: white;
+}
+
+#loginForm{
+    max-width: 800px;
+    margin: 0 auto
+}
