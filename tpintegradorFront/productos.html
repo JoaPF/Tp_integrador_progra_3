@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Totem</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- CDN para usar jsPDF -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="assets/favicon.ico" alt="icono" id="icono">
+        </div>
+        <nav><h1><strong>Guitarra AutoServicio</strong></h1></nav>
+        <p></p>
+    </header>
+
+    <main>
+        <section class="bienvenida">
+            <div>
+                <h2 id="usuario-bienvenida"></h2>
+                <h3>Pickea las tops guitarras mas tops de los tops</h3>
+            </div>
+        </section>
+        
+        <section class="cards-productos">
+
+        </section>
+    </main>
+
+
+    <footer>
+        <h2>Carrito</h2>
+        <section class="productos-carrito">
+            <div id="items-carrito"></div>
+
+        </section>
+
+        <section class="botones-carrito">
+            <button class="vaciar-carrito">Vaciar Carrito</button>
+            <button class="imprimir-ticket">Imprimir Ticket</button>
+        </section>
+    </footer>
+</body>
+</html>

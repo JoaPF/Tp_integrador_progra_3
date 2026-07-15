@@ -3,44 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Totem</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/script.js" defer></script>
+    <title>LoginTotem</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/login.js" defer></script>
 </head>
 <body>
+
     <header>
         <div>
             <img src="assets/favicon.ico" alt="icono" id="icono">
         </div>
-        <nav><h1><strong>Guitarra AutoServicio</strong></h1></nav>
-        <p>jajajja xd</p>
+        <nav><h1><strong>Bienvenido</strong></h1></nav>
+        <p></p>
     </header>
 
-    <main>
-        <section class="bienvenida">
-            <div>
-                <h3>Bienvenido (panchito)</h3>
-                <h3>Pickea las tops guitarras mas tops de los tops</h3>
-            </div>
-        </section>
+    <main class="login">
+    
+    <section>
+        <div id="contenedor-login">
+        <h2>Ingresá tu nombre para continuar</h2>
         
-        <section class="cards-productos">
-
-        </section>
+        <form id="form-login">
+            <input type="text" id="nombre" placeholder="Tu nombre" required>
+            <button type="submit">Continuar</button>
+        </form>
+        </div>
+    </section>
     </main>
 
-
-    <footer>
-        <h2>Carrito</h2>
-        <section class="productos-carrito">
-            <div id="items-carrito"></div>
-
-        </section>
-
-        <section class="botones-carrito">
-            <button class="vaciar-carrito">Vaciar Carrito</button>
-            <button class="imprimir-ticket">Imprimir Ticket</button>
-        </section>
-    </footer>
+    <footer></footer>
 </body>
 </html>

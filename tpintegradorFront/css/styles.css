@@ -129,6 +129,7 @@ footer h2 {
 
 .imprimir-ticket {
     background-color: var(--color-boton-ticket);
+    display: none;
     color: var(--color-texto);
     border: 2px solid transparent;
     border-radius: 6px;
