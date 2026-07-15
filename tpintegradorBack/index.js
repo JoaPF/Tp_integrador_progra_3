@@ -1,7 +1,7 @@
 import express from "express";
 const app = express(); // instancia de una aplicacion
 import enviroments from "./src/api/config/enviroments.js";
-import { productRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { productRoutes, salesRouter, viewRoutes } from "./src/api/routes/index.js";
 import connection from "./src/api/database/db.js"; // TO DO: Despues de modularizar users hay q sacar la conexion de la BBDD de index.js
 import cors from "cors"
 import { loggerURL, validateId, validateProduct } from "./src/api/middlewares/middlewares.js"; // TO DO: Despues de modularizar users hay que sacar validateId y Validate Product
@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 // Rutas
 app.use("/api/products", productRoutes);
 app.use("/dashboard", viewRoutes);
+app.use("/api/sales", salesRouter);
 
 //===========Productos===========
 

@@ -165,12 +165,56 @@ function imprimirTicket() {
 
     alert("Imprimiendo ticket");
 
-    sessionStorage.removeItem("usuario");
-    sessionStorage.removeItem("carrito");
+    // sessionStorage.removeItem("usuario");
+    // sessionStorage.removeItem("carrito");
 
-    window.location.href = "index.html";
+    // window.location.href = "index.html";
 
+    // llamada a registrar venta
+    registrarVenta(precioTotal);
+}
 
+async function registrarVenta(precioTotal /*, idProductos*/) {
+    try {
+
+        const fecha = new Date();
+
+        // Formato MySQL  para timestamp
+        // Tenemos que formatear la fecha para que la acepte MySQL
+        const fechaFormato = fecha.toISOString().slice(0, 19).replace("T", " "); // MySQL no acepta fechas con formato ISO con milisegundos ni Z
+
+        const data = {
+            usuario: usuario,
+            precioTotal: precioTotal,
+            fecha: fechaFormato,
+            // productos: idProductos
+        }
+
+        const response = await fetch("http://localhost:3000/api/sales", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            console.log("Venta registrada: ", result);
+            alert(result.message);
+
+            // limpieza y redireccion
+            sessionStorage.removeItem("usuario");
+            sessionStorage.removeItem("carrito");
+
+            window.location.href = "index.html";
+        }
+
+    } catch (error) {
+        console.error(result);
+        alert("Error en la venta: " + result.message);
+    }
 }
 
 
