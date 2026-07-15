@@ -81,7 +81,8 @@ async function formularioPutProducto(event, producto) {
         <input type="text" name="nombre" id="nameProd" value="${producto.nombre}" required>
 
         <label for="imageProd">Imagen del producto: </label>
-        <input type="text" name="imagen" id="imageProd" value="${producto.imagen}" required>
+        <input type="text" name="imagen" id="imageProd" value="${producto.imagen}" placeholder="Url de imagen (opcional)">
+        <input type="file" name="imagenFile" id="imageFile" accept="image/*">
 
         <label for="categoryProd">Categoria del producto: </label>
         <select name="categoria" id="categoryProd">
@@ -119,19 +120,13 @@ async function formularioPutProducto(event, producto) {
 async function actualizarProducto(event) {
     event.preventDefault();
     
-    // Agarro los datos del formulario (del evento) en un objeto FormData
+    // Enviamos FormData directamente (puede contener archivo)
     const formData = new FormData(event.target);
 
-    // Transformamos el objeto FormData en un objeto JS, porque queremos parsear estos datos a JSON.stringify()
-    const data = Object.fromEntries(formData.entries());
-    
     try {
         const response = await fetch("http://localhost:3000/api/products/", {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
+            body: formData
         });
 
         const result = await response.json();
@@ -145,8 +140,6 @@ async function actualizarProducto(event) {
 
     } catch (error) {
         console.error(error);
-
-        // Opt 5: Mostramos error de red (en el try...catch de fetch no capturamos error 400 o 500)
         mostrarError("Error de conexion con el servidor");
     }
 }

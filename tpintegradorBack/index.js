@@ -8,6 +8,8 @@ import { loggerURL, validateId, validateProduct } from "./src/api/middlewares/mi
 import { join, __dirname } from "./src/api/utils/index.js"; // Importamos la configuracion para trabajar con rutas de /utils
 import session from "express-session";//Para mantener la sesión iniciada
 
+//Nota: con multer si producto.imagen no es una URL absoluta, lo convierto a http://localhost:3000${producto.imagen} antes de renderizar
+
 // Config
 const { port, session_key } = enviroments;
 const PORT = port;

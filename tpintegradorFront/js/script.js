@@ -14,14 +14,20 @@ async function obtenerProductos() {
     const response = await fetch("http://localhost:3000/api/products");
     const data = await response.json();
     
+    const backendOrigin = "http://localhost:3000";
     data.payload.forEach(producto => {
         if (producto.activo === 1) {
-        sectionProductos.innerHTML += `
+            // Si imagen es ruta relativa (/assets/...), prefijar origin del backend
+            const imgSrc = producto.imagen && (producto.imagen.startsWith("http") || producto.imagen.startsWith("data:"))
+                ? producto.imagen
+                : `${backendOrigin}${producto.imagen}`;
+
+            sectionProductos.innerHTML += `
             <div class="card-producto">
-                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <img src="${imgSrc}" alt="${producto.nombre}">
                 <h4>${producto.nombre}</h4>
                 <p>$${producto.precio}</p>
-                <button onclick="agregarAlCarrito(${producto.id}, '${producto.nombre}', ${producto.precio}, '${producto.imagen}')">
+                <button onclick="agregarAlCarrito(${producto.id}, '${producto.nombre}', ${producto.precio}, '${imgSrc}')">
                 Agregar al carrito
             </button>
             </div>

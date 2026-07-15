@@ -1,3 +1,6 @@
+import multer from "multer";
+import { join, __dirname } from "../utils/index.js";
+
 // Middleware (de aplicacion) logger para analizar todas las solicitudes por consola (historial de consumo de nuestra API Rest en la consola)
 const loggerURL = (req, res, next) => {
     let fecha = new Date();
@@ -32,7 +35,7 @@ const validateProduct = (req, res, next) => {
     const errores = []
 
     // Validamos si se recibieron todos los campos
-    if (!nombre || !imagen || !categoria || !precio) {
+    if (!nombre || !categoria || !precio) {
         errores.push ("Datos invalidos, asegurate de completar todos los campos pancho");
     }
 
@@ -40,16 +43,19 @@ const validateProduct = (req, res, next) => {
         errores.push("El nombre debe tener al menos 2 caracteres");
     }
 
-    if (typeof imagen !== "string" || imagen.trim().length < 0) {
-        errores.push("Tenes que poner una url de imagen");
+    // imagen puede venir como url en body o como archivo subido -> attachImagen ya setea req.body.imagen
+    if (!imagen || typeof imagen !== "string" || imagen.trim().length === 0) {
+        errores.push("Tenes que poner una url de imagen o subir un archivo");
     }
 
-    if (typeof precio !== "number" || precio <= 0) {
+    // isNaN / is no a number retorna False
+    const precioNum = Number(precio);
+    if (isNaN(precioNum) || precioNum <= 0) {
         errores.push("El precio debe ser un numero mayor a 0");
     }
 
     if (!categoriasValidas.includes(categoria)) {
-        errores.push("Categoria  invalida");
+        errores.push("Categoria invalida");
     }
 
     // Detectamos que hay un error en la lista y lo devolvemos en un 400
@@ -59,6 +65,29 @@ const validateProduct = (req, res, next) => {
         });
     }
 
+    next();
+}
+
+// Multer guarda imagenes en src/public/assets
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, join(__dirname, "src/public/assets")),
+    filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
+});
+
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype && file.mimetype.startsWith("image/")) cb(null, true);
+        else cb(null, false);
+    }
+});
+
+// Si Multer sube un archivo, adjunto la ruta accesible al body.imagen
+const attachImagen = (req, res, next) => {
+    if (req.file) {
+        req.body.imagen = `/assets/${req.file.filename}`;
+    }
     next();
 }
 
@@ -75,5 +104,7 @@ export {
     loggerURL,
     validateId,
     validateProduct,
-    requireLogin
+    requireLogin,
+    upload,
+    attachImagen
 }

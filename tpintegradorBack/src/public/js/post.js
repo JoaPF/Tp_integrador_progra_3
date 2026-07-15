@@ -50,24 +50,19 @@ postProductForm.addEventListener("submit", async event => {
     }
 
     try {
-        // Aca guardamos la respuesta cruda del servidor que es la que nos proporciona el fetch una vez que la promesa devolvio Fulfilled
+        // Enviamos FormData (puede incluir archivo). No especificar Content-Type
         const response = await fetch("http://localhost:3000/api/products/", {
-            method: "POST", // Metodo de envio
-            headers: { // Que tipo de contenido le vas a mandar al servidor | Cabecera
-                "Content-Type": "application/json" // Contenido JSON vamos a enviar al servidor
-            },
-            body: JSON.stringify(data) // El contenido que enviamos | enviado en JSON
-        }); // Segundo parametro de fetch es un objeto donde aclaramos que metodo vamos a usar | hay que armar todo el paquete(?
+            method: "POST",
+            body: formData
+        });
 
         const result = await response.json();
 
-        // Opt: Manejamos respuestas no ok del servidor
         if (!response.ok) {
             mostrarMensaje("error", result.message);
             return;
         }
-        
-        // Mostramos el mensaje de exito y reseteamos el form
+
         const infoProducto = `${result.message} con id ${result.productId}`;
         mostrarMensaje("exito", infoProducto)
         console.log(infoProducto);
